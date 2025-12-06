@@ -1,65 +1,141 @@
-import Image from "next/image";
+'use client';
+
+import MockPhone from '@/components/MockPhone';
+import ChatPanel from '@/components/ChatPanel';
+import PromoModal from '@/components/PromoModal';
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
+      {/* Header */}
+      <header className="bg-white border-b shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                Maya AI Assistant Demo
+              </h1>
+              <p className="text-sm text-gray-600">Context-aware AI assistant for MyUnifi</p>
+            </div>
+            <div className="flex items-center gap-2 text-sm">
+              <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full font-semibold">
+                ● Live Demo
+              </span>
+            </div>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </header>
+
+      {/* Main Content */}
+      <main className="max-w-7xl mx-auto px-4 py-8">
+        <div className="grid lg:grid-cols-2 gap-8">
+          {/* Mock Phone */}
+          <div className="flex flex-col">
+            <div className="mb-4">
+              <h2 className="text-lg font-semibold text-gray-800 mb-1">Mock MyUnifi App</h2>
+              <p className="text-sm text-gray-600">
+                The AI can navigate screens, get data, and fill forms
+              </p>
+            </div>
+            <div className="flex-1 flex items-start justify-center">
+              <MockPhone />
+            </div>
+          </div>
+
+          {/* Chat Panel */}
+          <div className="flex flex-col">
+            <div className="mb-4">
+              <h2 className="text-lg font-semibold text-gray-800 mb-1">Chat with Maya</h2>
+              <p className="text-sm text-gray-600">
+                Ask questions in Malay or English - Maya will use tools to help you
+              </p>
+            </div>
+            <div className="flex-1 h-[600px]">
+              <ChatPanel />
+            </div>
+          </div>
+        </div>
+
+        {/* Demo Scenarios */}
+        <div className="mt-8 bg-white rounded-lg shadow-sm border p-6">
+          <h3 className="text-lg font-semibold mb-4">Try These Demo Scenarios:</h3>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+              <div className="font-semibold text-blue-800 mb-1">💳 Billing Question</div>
+              <div className="text-sm text-blue-700 italic">"Kenapa bil tinggi?"</div>
+              <div className="text-xs text-blue-600 mt-2">
+                → get_billing → navigate(billing) → explain
+              </div>
+            </div>
+
+            <div className="bg-purple-50 border border-purple-200 rounded-lg p-4">
+              <div className="font-semibold text-purple-800 mb-1">📡 WiFi Settings</div>
+              <div className="text-sm text-purple-700 italic">"Tukar password wifi"</div>
+              <div className="text-xs text-purple-600 mt-2">
+                → navigate(wifi)
+              </div>
+            </div>
+
+            <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+              <div className="font-semibold text-green-800 mb-1">📊 Data Usage</div>
+              <div className="text-sm text-green-700 italic">"Berapa data tinggal?"</div>
+              <div className="text-xs text-green-600 mt-2">
+                → get_usage → respond
+              </div>
+            </div>
+
+            <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+              <div className="font-semibold text-yellow-800 mb-1">🎁 Promotions</div>
+              <div className="text-sm text-yellow-700 italic">"Ada promo?"</div>
+              <div className="text-xs text-yellow-600 mt-2">
+                → show_promotion
+              </div>
+            </div>
+
+            <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+              <div className="font-semibold text-red-800 mb-1">💬 Support</div>
+              <div className="text-sm text-red-700 italic">"Report internet slow"</div>
+              <div className="text-xs text-red-600 mt-2">
+                → navigate(support) → fill_field × 2
+              </div>
+            </div>
+
+            <div className="bg-indigo-50 border border-indigo-200 rounded-lg p-4">
+              <div className="font-semibold text-indigo-800 mb-1">📱 Plan Info</div>
+              <div className="text-sm text-indigo-700 italic">"Apa pelan saya?"</div>
+              <div className="text-xs text-indigo-600 mt-2">
+                → get_services → respond
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Tech Stack */}
+        <div className="mt-6 bg-gradient-to-r from-gray-800 to-gray-900 text-white rounded-lg p-6">
+          <h3 className="text-lg font-semibold mb-3">Tech Stack</h3>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
+            <div>
+              <div className="font-semibold text-blue-400">Framework</div>
+              <div>Next.js 14 (App Router)</div>
+            </div>
+            <div>
+              <div className="font-semibold text-purple-400">AI SDK</div>
+              <div>Vercel AI SDK + Anthropic</div>
+            </div>
+            <div>
+              <div className="font-semibold text-green-400">Model</div>
+              <div>Claude Sonnet 4</div>
+            </div>
+            <div>
+              <div className="font-semibold text-yellow-400">State</div>
+              <div>Zustand + Tailwind CSS</div>
+            </div>
+          </div>
         </div>
       </main>
+
+      {/* Promo Modal */}
+      <PromoModal />
     </div>
   );
 }
