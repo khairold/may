@@ -13,8 +13,8 @@ A context-aware AI assistant for MyUnifi telco app, powered by Claude Sonnet 4.
 ## Tech Stack
 
 - **Framework**: Next.js 14+ (App Router)
-- **AI SDK**: Vercel AI SDK + @ai-sdk/anthropic
-- **Model**: Claude Sonnet 4 (claude-sonnet-4-20250514)
+- **AI SDK**: Vercel AI SDK + @ai-sdk/anthropic + @ai-sdk/google
+- **Models**: Claude Sonnet 4 (default) or Google Gemini (configurable)
 - **State Management**: Zustand
 - **Styling**: Tailwind CSS
 - **Type Safety**: TypeScript + Zod
@@ -35,13 +35,27 @@ Create a `.env.local` file:
 cp .env.example .env.local
 ```
 
-Add your Anthropic API key:
+#### Option 1: Use Anthropic (Default)
 
 ```env
+AI_PROVIDER=anthropic
 ANTHROPIC_API_KEY=your_api_key_here
+ANTHROPIC_MODEL=claude-sonnet-4-20250514
 ```
 
 Get your API key from [Anthropic Console](https://console.anthropic.com/).
+
+#### Option 2: Use Google Gemini
+
+```env
+AI_PROVIDER=google
+GOOGLE_GENERATIVE_AI_API_KEY=your_api_key_here
+GOOGLE_MODEL=gemini-2.5-flash
+```
+
+Get your API key from [Google AI Studio](https://aistudio.google.com/app/apikey).
+
+**Note**: If `AI_PROVIDER` is not set, it defaults to `anthropic`.
 
 ### 3. Run Development Server
 
@@ -178,7 +192,9 @@ Deploy to Vercel with one click:
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/yourusername/maya-demo)
 
-Don't forget to add `ANTHROPIC_API_KEY` to your Vercel environment variables!
+Don't forget to add your API keys to your Vercel environment variables:
+- For Anthropic: `AI_PROVIDER=anthropic`, `ANTHROPIC_API_KEY`, and optionally `ANTHROPIC_MODEL`
+- For Google: `AI_PROVIDER=google`, `GOOGLE_GENERATIVE_AI_API_KEY`, and optionally `GOOGLE_MODEL`
 
 ## License
 

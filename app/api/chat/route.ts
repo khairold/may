@@ -1,18 +1,35 @@
 import { anthropic } from '@ai-sdk/anthropic';
-import { streamText, stepCountIs } from 'ai';
+import { google } from '@ai-sdk/google';
+import { streamText, stepCountIs, convertToModelMessages } from 'ai';
 import { tools, buildSystemPrompt } from '@/lib/tools';
 import { mockData } from '@/lib/mock-data';
 
 export const maxDuration = 30;
+
+// Get the AI provider based on environment variable
+// Defaults to 'anthropic' if not set
+// Set AI_PROVIDER to 'google' or 'gemini' to use Google Generative AI
+function getModel() {
+  const provider = (process.env.AI_PROVIDER || 'anthropic').toLowerCase();
+  
+  if (provider === 'google' || provider === 'gemini') {
+    // Use Gemini model - you can change the model ID here
+    // Popular options: 'gemini-2.5-flash', 'gemini-2.5-pro', 'gemini-1.5-pro', etc.
+    return google(process.env.GOOGLE_MODEL || 'gemini-2.5-flash');
+  } else {
+    // Default to Anthropic
+    return anthropic(process.env.ANTHROPIC_MODEL || 'claude-sonnet-4-20250514');
+  }
+}
 
 export async function POST(req: Request) {
   try {
     const { messages } = await req.json();
 
     const result = streamText({
-      model: anthropic('claude-sonnet-4-20250514'),
+      model: getModel(),
       system: buildSystemPrompt({ user: mockData.user, billing: mockData.billing, usage: mockData.usage, services: mockData.services, currentScreen: 'home' }),
-      messages,
+      messages: convertToModelMessages(messages),
       tools,
       stopWhen: stepCountIs(6),
       onStepFinish({ finishReason, toolCalls }) {
